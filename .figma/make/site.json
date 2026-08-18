@@ -1,0 +1,10 @@
+{
+  "description": "This web application enables users to effortlessly create and manage websites in Uzbek, providing a user-friendly interface and essential tools for local businesses and individuals.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
