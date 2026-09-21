@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -46,7 +47,12 @@ const badges = [
   },
 ];
 
-const achievements = [
+type Achievement = {
+  name: string;
+  pdf: string;
+};
+
+const achievements: Achievement[] = [
   { name: "Baxtiyorov Alisher", pdf: alisherPdf },
   { name: "Qazaqova Asalxon", pdf: asalhonPdf },
   { name: "Botirova Baxtigul", pdf: baxtigulPdf },
@@ -102,6 +108,23 @@ const CustomTooltip = ({
 };
 
 export default function Results() {
+  const [selected, setSelected] = useState<Achievement | null>(null);
+
+  useEffect(() => {
+    if (!selected) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selected]);
+
   return (
     <main className="pt-16 lg:pt-20">
       {/* Header */}
@@ -303,11 +326,10 @@ export default function Results() {
                       className="w-full aspect-[4/3] border-0 pointer-events-none"
                       loading="lazy"
                     />
-                    <a
-                      href={a.pdf}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute inset-0 z-10"
+                    <button
+                      type="button"
+                      onClick={() => setSelected(a)}
+                      className="absolute inset-0 z-10 cursor-pointer"
                       aria-label={`${a.name} sertifikatini ochish`}
                     />
                     <div className="absolute top-3 right-3 z-20 pointer-events-none">
@@ -327,14 +349,13 @@ export default function Results() {
                       O&rsquo;quvchi sertifikati
                     </p>
                     <div className="mt-3 pt-3 border-t border-brand-purple/10">
-                      <a
-                        href={a.pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => setSelected(a)}
                         className="font-sans text-xs text-brand-dark/55 group-hover:text-brand-purple transition-colors"
                       >
                         To&rsquo;liq sertifikatni ko&rsquo;rish →
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </article>
@@ -365,6 +386,47 @@ export default function Results() {
           </a>
         </div>
       </section>
+
+      {/* Certificate modal */}
+      {selected && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selected.name} sertifikati`}
+        >
+          <button
+            type="button"
+            aria-label="Yopish"
+            className="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm"
+            onClick={() => setSelected(null)}
+          />
+          <div className="relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between gap-4 mb-3">
+              <p className="font-display font-semibold text-white text-sm sm:text-base truncate">
+                {selected.name}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSelected(null)}
+                aria-label="Yopish"
+                className="shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="overflow-hidden rounded-2xl bg-white shadow-2xl">
+              <iframe
+                src={`${selected.pdf}#toolbar=0&navpanes=0&view=FitH`}
+                title={`${selected.name} sertifikati`}
+                className="w-full h-[70vh] sm:h-[75vh] border-0"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

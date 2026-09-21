@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import ImagePlaceholder from "../components/ImagePlaceholder";
 import SciBg from "../components/SciBg";
-import aboutImage2 from "../images/222.jpg";
+import aboutImage2 from "../images/111.jpg";
 import direktor from "../images/direktor.jpg";
 
 const teachers = [
@@ -251,7 +251,7 @@ export default function About() {
 
               <div className="flex items-center gap-3 mt-7">
                 <a
-                  href="https://t.me/JOKKER_OLIM"
+                  href="https://t.me/tolqinbek_math_academy"
                   className="inline-flex items-center gap-2 text-brand-purple text-sm font-display font-semibold hover:underline"
                 >
                   Telegram orqali murojaat

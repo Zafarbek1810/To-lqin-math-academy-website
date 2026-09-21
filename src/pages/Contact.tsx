@@ -70,7 +70,7 @@ export default function Contact() {
                       />
                     ),
                     label: "Telefon",
-                    value: "+998 97 859 99 09",
+                    value: "+998 95 525 99 09",
                     href: "tel:+998978599909",
                   },
                   {
@@ -83,8 +83,8 @@ export default function Contact() {
                       />
                     ),
                     label: "Telegram",
-                    value: "@JOKKER_OLIM",
-                    href: "https://t.me/JOKKER_OLIM",
+                    value: "@tolqinbek_math_academy",
+                    href: "https://t.me/tolqinbek_math_academy",
                   },
                   {
                     icon: (
@@ -325,18 +325,40 @@ export default function Contact() {
             <h3 className="font-display font-bold text-2xl text-brand-dark mb-1">
               Bizning manzilimiz
             </h3>
+            <p className="font-sans text-brand-dark font-medium text-sm mb-1">
+              To&rsquo;lqinbek Math Academy
+            </p>
             <p className="font-sans text-brand-dark/50 text-sm mb-6">
-              Bog'ot tumani Ashxabod mahallasi — biz shu yerda joylashganmiz.
+              Bog&rsquo;ot tumani, Ashxabod mahallasi — 41°21&apos;22.3&quot;N
+              60°49&apos;40.4&quot;E
             </p>
           </div>
 
-          {/* Map area */}
-          <div className="relative h-80 bg-gradient-to-br from-brand-purple/10 to-brand-green/10 flex items-center justify-center border-t border-brand-purple/15">
-            <div className="text-center w-full h-full">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d282.5205236031631!2d60.82787752195259!3d41.35619886189717!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfeb0048cbeb15%3A0xc2a75363398806a1!2sBobur%20salon!5e0!3m2!1sru!2s!4v1786220105753!5m2!1sru!2s" width="100%" height="350" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
+          {/* Map: red pin fixed at 41°21'22.3"N 60°49'40.4"E */}
+          <div className="relative h-80 sm:h-96 border-t border-brand-purple/15 overflow-hidden">
+            <iframe
+              title="To'lqinbek Math Academy manzili"
+              src="https://maps.google.com/maps?q=41.3561944,60.8278889+(To'lqinbek%20Math%20Academy,%20Bog'ot%20tumani,%20Ashxabod%20mahallasi)&z=18&hl=uz&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
 
-           
+            {/* Address label above the pin */}
+            <div className="pointer-events-none absolute left-1/2 top-[42%] z-10 -translate-x-1/2 -translate-y-full">
+              <div className="relative rounded-xl bg-white px-4 py-2.5 shadow-lg shadow-brand-dark/20 border border-brand-purple/10 text-center max-w-[280px] sm:max-w-none">
+                <p className="font-display font-bold text-brand-dark text-sm leading-snug">
+                  To&rsquo;lqinbek Math Academy
+                </p>
+                <p className="font-sans text-brand-dark/60 text-xs mt-0.5 leading-snug">
+                  Bog&rsquo;ot tumani, Ashxabod mahallasi
+                </p>
+                <span className="absolute left-1/2 -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 bg-white border-r border-b border-brand-purple/10" />
+              </div>
+            </div>
           </div>
         </div>
       </section>

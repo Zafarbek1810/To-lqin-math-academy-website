@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ImagePlaceholder from "../components/ImagePlaceholder";
 import SciBg from "../components/SciBg";
 import ExamResultsSection from "../components/ExamResultsSection";
-import heroImage from "../images/logo2.jpg";
+import heroImage from "../images/logo1.jpg";
 import heroImage2 from "../images/111.jpg";
 
 function useCountUp(target: number, duration = 1800) {
