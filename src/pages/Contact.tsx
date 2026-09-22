@@ -21,10 +21,41 @@ export default function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        const message = data?.message;
+        throw new Error(
+          Array.isArray(message) ? message.join(", ") : message || "Xatolik",
+        );
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message !== "Xatolik"
+          ? err.message
+          : "Ariza yuborilmadi. Internetni tekshirib, qayta urinib ko'ring.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -284,11 +315,18 @@ export default function Contact() {
                         />
                       </div>
 
+                      {error && (
+                        <p className="text-sm font-sans text-red-500 text-center">
+                          {error}
+                        </p>
+                      )}
+
                       <button
                         type="submit"
-                        className="w-full bg-brand-purple text-white py-4 rounded-xl font-display font-bold text-base hover:bg-brand-purple-dark transition-all shadow-lg shadow-brand-purple/30 hover:shadow-brand-purple/40 hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                        disabled={submitting}
+                        className="w-full bg-brand-purple text-white py-4 rounded-xl font-display font-bold text-base hover:bg-brand-purple-dark transition-all shadow-lg shadow-brand-purple/30 hover:shadow-brand-purple/40 hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-60 disabled:hover:translate-y-0"
                       >
-                        Ariza yuborish
+                        {submitting ? "Yuborilmoqda..." : "Ariza yuborish"}
                         <svg
                           className="w-5 h-5"
                           fill="none"
