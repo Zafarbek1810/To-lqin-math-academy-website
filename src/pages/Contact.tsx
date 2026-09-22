@@ -1,6 +1,16 @@
 import { useState } from "react";
 import SciBg from "../components/SciBg";
 
+function applicationsUrl() {
+  const configured = import.meta.env.VITE_API_BASE?.replace(/\/$/, "");
+  if (configured) return `${configured}/api/applications`;
+  const host = window.location.hostname;
+  if (host === "tolqinacademy.uz" || host === "www.tolqinacademy.uz") {
+    return "https://admin.tolqinacademy.uz/api/applications";
+  }
+  return "/api/applications";
+}
+
 const subjects = [
   "Matematika",
   "Fizika",
@@ -29,7 +39,7 @@ export default function Contact() {
     setSubmitting(true);
     setError("");
     try {
-      const res = await fetch("/api/applications", {
+      const res = await fetch(applicationsUrl(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
