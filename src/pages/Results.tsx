@@ -163,13 +163,13 @@ export default function Results() {
                 c: "text-brand-green",
               },
               {
-                n: "12+",
+                n: "50+",
                 l: "Sertifikatlar",
                 desc: "Xalqaro va mahalliy",
                 c: "text-brand-gold",
               },
               {
-                n: "XX+",
+                n: "3+",
                 l: "Olimpiada g'oliblari",
                 desc: "Turli darajalarda",
                 c: "text-brand-purple",
